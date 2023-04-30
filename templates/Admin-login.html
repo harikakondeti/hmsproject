@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename = '/Admin-login.css')}}">
+    <link rel="stylesheet" href="boxicons-master/css/boxicons.css">
+
+    <title> Admin Login</title>
+
+</head>
+<body>
+    <form method="POST">
+   <div class="box">
+    <div class="container">
+            
+
+        <div class="top">
+            <span>Have an account?</span>
+            <header>Admin Login</header>
+        </div>
+
+        <div class="input-field">
+            <input type="text" class="input" name="username" placeholder="Enter your username" required id="">
+            <i class='bx bx-user' ></i>
+        </div>
+
+        <div class="input-field">
+            <input type="Password" class="input"name="password" placeholder="Enter your password" required id="">
+            <i class='bx bx-lock-alt'></i>
+        </div>
+
+        
+          <button class="input-field-login" >Login</button>
+        
+
+       
+            <div class="two">
+                <label><a href="{{url_for('forgot')}}">forgot password?</a></label>
+            </div>
+        </div>
+    </div>
+ 
+</form> 
+</body>
+</html>

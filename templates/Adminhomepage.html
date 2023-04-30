@@ -1,0 +1,31 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{url_for('static',filename='/Admin-homepage.css')}}"/>
+    <title>Hostel Mangement System</title>
+  </head>
+  <body>
+    <div class="menu-bar">
+      <h1 class="logo">Admin<span> Page</span></h1>
+      <ul>
+        <li>
+         <a href="{{url_for('addstudent')}}">Add Student</a></li>
+        <li>
+          <a href="{{url_for('studentrecord')}}">Student Record</a></li>
+        <li>
+          <a href="{{url_for('checkin')}}">Student checkin</a></li>
+        <li>
+            <a href="{{url_for('visitorcheckin')}}">Visitor checkin</a>
+        </li>
+        <li>
+          <a href="{{url_for('logout')}}">Log Out</a>
+      </li>
+        
+      </ul>
+    
+
+
+    </div>
+  </body>
+</html>

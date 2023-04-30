@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link type="text/css" rel="stylesheet" href="{{url_for('static',filename = '/update.css')}}">
+   
+</head>
+<body>
+    <a href="{{url_for('studentrecord')}}"><button>Back</button></a>
+<form  method="POST">
+    <br>
+    <h1 style="color:rgb(14, 13, 13); margin-top:15%;">Update</h1>
+    <div style=" margin-top:2%">
+        StudentId. <input type="text" name="id" value='{{data[0]}}' readonly> 
+        Name: <input type="text" name="name" value="{{data[1]}}">
+        section <input type="text" name="section" value="{{data[2]}}">
+        Room <input type="text" name="Room" value="{{data[3]}}"> 
+        mobileNumber<input type="text" name="mobile" value="{{data[4]}}"> 
+    
+        <br><br>
+        <input type="submit" value="submit" class="button1">
+    </div>
+</form>
+</body>
+</html>

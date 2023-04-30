@@ -1,0 +1,16 @@
+body{
+    background-image: url('https://img.freepik.com/free-photo/maple-leaf-border-background-orange-watercolor-autumn-season_53876-128735.jpg');
+    background-size: cover;
+    font-family: 'Times New Roman', Times, serif;
+    color:rgb(6, 6, 6);
+}
+
+panel-body{
+    width: 100%;
+    max-width: 650px;
+    background:rgba(0, 0, 0, 0.5);
+    padding: 28px;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: inset -2px 2px 2px rgb(10, 10, 10);
+}  

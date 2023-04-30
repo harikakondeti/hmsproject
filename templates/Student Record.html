@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HOSTEL MANGEMENT SYSTEM</title>
+    <link type="text/css" rel="stylesheet" href="{{url_for('static',filename = '/Student Record.css')}}">
+   
+</head>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+     <center><b>{{ message }}</b></center>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+<body>
+  <form  method="POST">
+<div class="body">
+  <a href="{{url_for('Adminpage')}}">Back</a>
+  <center><h1 style="color:rgb(3, 15, 15); margin-top:5%;">Student Records</h1>
+  <div style="margin-left:1%; margin-top:1%;"></div>
+ <table cellpadding="10px">
+      <tr>
+          <td class="head">StudentID</td>
+          <td class="head">Student Name</td>
+          <td class="head">Group</td>
+          <td class="head">Student Roomno</td>
+          <td class="head">Mobile number</td>
+        </tr>
+        {% for i in data %}
+        <tr>
+          <td>{{i[0]}}</td>
+          <td>{{i[1]}}</td>
+          <td>{{i[2]}}</td>
+          <td>{{i[3]}}</td>
+          <td>{{i[4]}}</td>
+          <td><button class="btnstyle" type="submit" style="text-decoration: none;"><a href="{{url_for('delete',id=i[0])}}">Delete</a></button></td>
+          <td><button class="btnstyle" type="submit" style="text-decoration: none;"><a href="{{url_for('update',id=i[0])}}">Update</a></button></td>
+        </tr>
+        {% endfor %}
+      </table></center>
+    </div>
+  </form>
+
+</body>
+</html>
+
+

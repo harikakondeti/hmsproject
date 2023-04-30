@@ -1,0 +1,27 @@
+table,td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-weight: bold ;
+    color:rgb(249, 33, 249);
+    font-size:20px;
+    text-align: center;
+  }
+  .head{
+    color: rgb(22, 176, 248);
+    font-size:25px ;
+  }
+  body {
+  background-image: url('https://www.shutterstock.com/image-vector/3d-yellow-background-products-display-260nw-2032939511.jpg');
+  background-size: cover;
+  }
+  .btnstyle {
+    background-color:rgb(204, 59, 144);
+    color:rgb(12, 11, 11);
+    padding:10px;
+    border-radius: 8px;
+    border:none;
+    font-size: 18px;
+    margin: 10px;
+    cursor: pointer;
+    text-decoration: none;
+  }

@@ -1,0 +1,59 @@
+body{
+    background-image: url(https://images.unsplash.com/photo-1577017040065-650ee4d43339?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8em9vbSUyMGJhY2tncm91bmQlMjBvZmZpY2V8ZW58MHx8MHx8&w=1000&q=80);
+    background-size: cover;
+}
+body > table{
+    width: 80%;
+    margin: 40px auto;
+    background: linear-gradient(-135deg, #325f1cc9, #3d601a);
+}
+table{
+    border-collapse: collapse;
+}
+.container .title{
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+  }
+  .container .title::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 30px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+  }
+table.list{
+    width: 100%;
+}
+td, th{
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px 15px;
+}
+tr:nth-child(even),table.list thead>tr{
+    background-color: #ddd;
+}
+input[type="text"], input[type="number"]{
+    width: 91%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+input[type="submit"],input[type="reset"]{
+    background: #eee;
+    padding: 6px 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 30px;
+    border: none;
+    margin: 15px 0 10px;
+    outline: none;
+}
+input[type="submit"]:hover{
+    background: #f3f3f3;
+}
