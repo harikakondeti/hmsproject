@@ -1,10 +1,11 @@
-from flask import Flask,flash,redirect,render_template,url_for,request,session
+  from flask import Flask,flash,redirect,render_template,url_for,request,session,send_from_directory
 from flask_session import Session
 from flask_mysqldb import MySQL
 from otp import genotp
 from cmail import sendmail
 import random
 import os
+import cv2
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from tokenreset import token
 from io import BytesIO
@@ -83,7 +84,7 @@ def login():
 @app.route('/adminpage',methods=['GET','POST'])
 def Adminpage():
     if session.get('user'):
-        return render_template('adminhomepage.html')
+        return render_template('Adminhomepage.html')
 @app.route('/addstudent',methods=['GET','POST'])
 def addstudent():
     if session.get('user'):
@@ -106,7 +107,7 @@ def studentrecord():
         cursor.execute('SELECT * from students')
         data=cursor.fetchall()
         cursor.close()
-        
+
         return render_template('Student Record.html',data=data)
 @app.route('/delete/<id>')
 def delete(id):
@@ -166,7 +167,7 @@ def checkin():
                 flash('The student already gone outside')
             else:
                 cursor=mysql.connection.cursor()
-                cursor.execute('insert into records(Id,Name,section,roomno,mobile,checkin,checkout,date) values(%s,%s,%s,%s,%s,%s,%s,%s)',[Id,Name,section,roomno,mobileno,None,None,date_today])
+                cursor.execute('insert into records(Id,Name,section,roomno,mobile,date) values(%s,%s,%s,%s,%s,%s)',[Id,Name,section,roomno,mobileno,date_today])
                 mysql.connection.commit()
                 cursor.execute('SELECT date,Id,Name,section,roomno,mobile,checkin,checkout from records')
                 std_records=cursor.fetchall()
@@ -174,19 +175,24 @@ def checkin():
         return render_template('Check in-page.html',data1=data1,data=data,details=details,std_records=std_records)
 @app.route('/checkoutupdate/<date>/<id1>')
 def checkoutupdate(date,id1):
+    time=datetime.strftime(datetime.now(),'%Y/%m/%d %I:%M %S')
     cursor=mysql.connection.cursor()
-    cursor.execute('update records set checkout=current_timestamp() where date=%s and Id=%s',[date,id1])
+    cursor.execute('update records set checkout=%s where date=%s and Id=%s',[time,date,id1])
     mysql.connection.commit()
     return redirect(url_for('checkin'))
 @app.route('/checkinupdate/<date>/<id1>')
 def checkinupdate(date,id1):
+    time=datetime.strftime(datetime.now(),'%Y/%m/%d %I:%M %S')
     cursor=mysql.connection.cursor()
-    cursor.execute('update records set checkin=current_timestamp() where date=%s and Id=%s',[date,id1])
+    cursor.execute('update records set checkin=%s where date=%s and Id=%s',[time,date,id1])
     mysql.connection.commit()
     return redirect(url_for('checkin'))
 @app.route('/visitorcheckin',methods=['GET','POST'])
 def visitorcheckin():
     if session.get('user'):
+        path=os.path.dirname(os.path.abspath(__file__))
+        static_path=os.path.join(path,'static','image')
+        path_data=os.listdir(static_path)
         cursor=mysql.connection.cursor()
         cursor.execute('SELECT * from students')
         data=cursor.fetchall()
@@ -208,17 +214,19 @@ def visitorcheckin():
             mysql.connection.commit()
             cursor.execute('SELECT * from visitorrecords')
             details=cursor.fetchall()
-        return render_template('visitorcheckin.html',data=data,details=details)
+        return render_template('visitorcheckin.html',data=data,details=details,path_data=path_data)
 @app.route('/Checkoutupdate/<vid>')
 def Checkoutupdate(vid):
+    time=datetime.strftime(datetime.now(),'%Y/%m/%d %I:%M %S')
     cursor=mysql.connection.cursor()
-    cursor.execute('update visitorrecords set checkout=current_timestamp() where vid=%s',[vid])
+    cursor.execute('update visitorrecords set checkout=%s where vid=%s',[time,vid])
     mysql.connection.commit()
     return redirect(url_for('visitorcheckin'))
 @app.route('/Checkinupdate/<vid>')
 def Checkinupdate(vid):
+    time=datetime.strftime(datetime.now(),'%Y/%m/%d %I:%M %S')
     cursor=mysql.connection.cursor()
-    cursor.execute('update visitorrecords set checkin=current_timestamp() where vid=%s',[vid])
+    cursor.execute('update visitorrecords set checkin=%s where vid=%s',[time,vid])
     mysql.connection.commit()
     return redirect(url_for('visitorcheckin'))
 @app.route('/forgotpassword',methods=['GET','POST'])
@@ -266,7 +274,29 @@ def logout():
     else:
         flash('already logged out!')
         return redirect(url_for('login'))
-app.run(debug=True)                                                                                         
+
+@app.route('/imagecapture/<vid>')
+def photo_capture(vid):
+    path=os.path.dirname(os.path.abspath(__file__))
+    static_path=os.path.join(path,'static','image')
+    image=cv2.VideoCapture(0)
+    _,img=image.read()
+    cv2.imwrite(os.path.join(static_path,vid+'.jpg'), img)
+    image.release()
+    cv2.destroyAllWindows()
+    return redirect(url_for('visitorcheckin'))
+
+@app.route('/viewimg/<vid>')
+def viewvid(vid):
+    path=os.path.dirname(os.path.abspath(__file__))
+    static_path=os.path.join(path,'static','image')
+    filename=vid+'.jpg'
+    return send_from_directory(static_path,filename)
+
+
+
+app.run(port='8000')
+                                                                                     
 
         
 
