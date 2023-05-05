@@ -22,7 +22,7 @@
     <tr>
         <td>
             <!--HTML form for crud operation-->
-            
+
             <form autocomplete="off" action="{{url_for('visitorcheckin')}}" method="POST">
                 <div>
                     <label for="fullName">Student-Id</label>
@@ -40,7 +40,7 @@
                     <label for="fullName">Mobile Number</label>
                     <input type="number" name="visitormobile"  >
                 </div>
-                
+
                     <button type="submit">submit</button>
             </form>
         </td>
@@ -52,31 +52,36 @@
                         <th>Student-Id</th>
                         <th>Visitor-name</th>
                         <th>MobileNo</th>
-                        <th>Check(IN)</th>         
+                        <th>Check(IN)</th>
                         <th>Check(OUT)</th>
                         <th>date</th>
-                        
-                        
+
+
                     </tr>
                 </thead>
                 <tbody>
                   {% for i in details %}
                   <tr>
                       <td>{{i[0]}}</td>
+                      <td>{{i[6]}}</td>
                       <td>{{i[1]}}</td>
                       <td>{{i[2]}}</td>
+                      {% if i[3]!=None %}
                       <td>{{i[3]}}</td>
+                      {% else %}
+                      <td><a href='{{url_for("Checkinupdate",vid=i[0])}}'>{{i[3]}}</td></a>
+                      {% endif %}
                       {% if i[4]!=None %}
                       <td>{{i[4]}}</td>
                       {% else %}
-                      <td><a href='{{url_for("Checkinupdate",vid=i[0])}}'>{{i[4]}}</td></a>
+                      <td><a href='{{url_for("Checkoutupdate",vid=i[0])}}'>{{i[4]}}</td></a>
                       {% endif %}
-                      {% if i[5]!=None %}
                       <td>{{i[5]}}</td>
+                      {% if i[0]|string+'.jpg' in path_data %}
+                      <td><a href="{{url_for('viewvid',vid=i[0])}}">view</a></td>
                       {% else %}
-                      <td><a href='{{url_for("Checkoutupdate",vid=i[0])}}'>{{i[5]}}</td></a>
+                      <td><a href="{{url_for('photo_capture',vid=i[0])}}">add image</a></td>
                       {% endif %}
-                      <td>{{i[6]}}</td>
                   </tr>
                   {% endfor %}
                 </tbody>
